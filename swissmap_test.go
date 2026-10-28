@@ -2,22 +2,57 @@ package swissmap
 
 import (
 	"testing"
-	"fmt"
+	"github.com/stretchr/testify/assert"
 )
 
-
 func TestBern(t *testing.T) {
-	// 46.9481°, 7.4474°
-    bern := LV95Pos{2600000,1200000}
-    fmt.Println(LV95ToWGS84(bern))
-    fmt.Println(WGS84Pos{7.4474, 46.9481})
+
+    bern := LV95Pos{2600000, 1200000}
+    expected_lat := 46.9481
+    expected_lon := 7.4474
+
+    p := LV95ToWGS84(bern)
+
+    assert.InDelta(t, expected_lat, p.latitude, 0.08)
+    assert.InDelta(t, expected_lon, p.longitude, 0.12)
 }
 
-// Numerical example
-// given: E = 2 700 000 m N = 1 100 000 m hCH = 600 m
-// → y' = 0.1 x' = -0.1
-// → λ' = 3.14297976 φ' = 16.57588564 hWGS = 650.55 m
-// → λ = 8° 43' 49.80" φ = 46° 02' 38.86"
-// Reference: λ = 8° 43' 49.79" φ = 46° 02' 38.87" h = 650.60 m
-// The precision of the approximate formulas is better than 0.12" in longitude, 0.08" in latitude and 0.5
-// metres in height everywhere in Switzerland.
+func TestGeneva(t *testing.T) {
+
+    geneva := LV95Pos{2499944, 1117674}
+    expected_lat := 46.204391
+    expected_lon := 6.143158
+
+    p := LV95ToWGS84(geneva)
+
+    assert.InDelta(t, expected_lat, p.latitude, 0.08)
+    assert.InDelta(t, expected_lon, p.longitude, 0.12)
+}
+
+
+func TestPoint1(t *testing.T){
+
+    e := 2610735.0
+    n := 1183359.0
+    expected_lat := 46.801306998
+    expected_lon := 7.579259163
+
+    p := LV95ToWGS84(LV95Pos{e, n})
+
+    assert.InDelta(t, expected_lat, p.latitude, 0.08)
+    assert.InDelta(t, expected_lon, p.longitude, 0.12)
+}
+
+func TestPoint2(t  *testing.T) {
+
+    e := 2700000.0
+    n := 1100000.0
+    expected_lat := 46.044130339
+    expected_lon := 8.730497076
+
+    p := LV95ToWGS84(LV95Pos{e, n})
+
+    assert.InDelta(t, expected_lat, p.latitude, 0.08)
+    assert.InDelta(t, expected_lon, p.longitude, 0.12)
+
+}
