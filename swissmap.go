@@ -33,13 +33,8 @@ func LV95ToWGS84(pos LV95Pos) WGS84Pos {
 				   0.0447 * math.Pow(e_prime, 2) * n_prime -
 				   0.0140 * math.Pow(n_prime, 3)
 
-	e := lambda_prime * 100 / 36
-	n := theta_prime * 100 / 36
-	return WGS84Pos{e, n}
-}
+	long := lambda_prime * 100 / 36
+	lat := theta_prime * 100 / 36
 
-// Geneva, Switzerland
-// • Easting (X): 279,608 m
-// • Northing (Y): 5,120,725 m
-// • Latitude: 46° 12' 15.8" N (46.204391°)
-// • Longitude: 6° 08' 35.4" E (6.143158°)
+	return WGS84Pos{lat, long}
+}
