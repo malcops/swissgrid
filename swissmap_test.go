@@ -29,7 +29,6 @@ func TestGeneva(t *testing.T) {
     assert.InDelta(t, expected_lon, p.longitude, 0.12)
 }
 
-
 func TestPoint1(t *testing.T){
 
     e := 2610735.0
@@ -54,7 +53,6 @@ func TestPoint2(t  *testing.T) {
 
     assert.InDelta(t, expected_lat, p.latitude, 0.08)
     assert.InDelta(t, expected_lon, p.longitude, 0.12)
-
 }
 
 func TestGivenExample(t *testing.T) {
