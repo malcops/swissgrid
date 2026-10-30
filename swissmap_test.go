@@ -56,3 +56,10 @@ func TestPoint2(t  *testing.T) {
     assert.InDelta(t, expected_lon, p.longitude, 0.12)
 
 }
+
+func TestGivenExample(t *testing.T) {
+	given := WGS84Pos{46.044131, 8.730497}
+	p := WGS84ToLV95(given)
+	assert.InDelta(t, 2700000, p.easting, 1)
+    assert.InDelta(t, 1100000, p.northing, 1)
+}
